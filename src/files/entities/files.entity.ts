@@ -5,8 +5,8 @@ export class Archivo {
     @PrimaryGeneratedColumn('uuid')
     archivo_id: string;
 
-    @Column({ type: "integer" })
-    solicitud_id: number
+    @Column({ type: "uuid" })
+    solicitud_id: string
 
     @Column({ type: "varchar", length:  100 })
     file_url: string;
