@@ -4,8 +4,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as express from 'express';
 import { join } from 'path';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
+  const logger = new Logger('Main');
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
@@ -24,5 +26,6 @@ async function bootstrap() {
   app.use('/files', express.static(join(process.cwd(), uploadPath || '', '')));
 
   await app.listen(process.env.PORT ?? 5002);
+  logger.log(`Server is running on port ${process.env.PORT}`);
 }
 bootstrap();

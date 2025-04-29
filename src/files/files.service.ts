@@ -21,7 +21,7 @@ export class FilesService {
     return {
       message: 'Archivo cargado exitosamente',
       filename: file.filename,
-      url: `${serverUrl}/uploads${relativePath}`
+      url: `${serverUrl}/${relativePath}`
     }
   }
 

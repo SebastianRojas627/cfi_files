@@ -12,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../..', 'uploads'), 
+      rootPath: join(__dirname, '../', 'uploads'), 
       serveRoot: '/uploads', 
     }),
 
