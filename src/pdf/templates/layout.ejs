@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @page {
+        margin: 100px 50px;
+      }
+      header {
+        position: fixed;
+        top: -80px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      footer {
+        position: fixed;
+        bottom: -60px;
+        right: 0;
+        font-size: 12px;
+      }
+      .page-break {
+        page-break-after: always;
+      }
+    </style>
+  </head>
+  <body>
+
+    <% let index = 1; %>
+      <% for (const sujeto of respuesta.results) { %>
+      <%- include('./sujeto', { sujeto, index }) %>
+        <div class="page-break"></div>
+      <% index++; %>
+    <% } %>
+
+  </body>
+</html>

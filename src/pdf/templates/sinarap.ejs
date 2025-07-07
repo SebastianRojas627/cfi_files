@@ -1,0 +1,86 @@
+<style>
+  .sinarap-container {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+
+  .sinarap-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 5px;
+  }
+
+  .section-title {
+    font-weight: bold;
+    font-size: 1.05em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+
+  th, td {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .no-records {
+    color: red;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="sinarap-container">
+  <div class="sinarap-title">Antecedentes SINARAP</div>
+
+  <% const fuentes = ['FELCC', 'FELCN', 'TRANSITO']; %>
+
+  <% fuentes.forEach(fuente => { 
+       const registros = sinarap.antecedentes.filter(a => a.fuente === fuente);
+  %>
+    <div class="section-title">Fuente: <%= fuente %></div>
+
+    <% if (registros.length === 0) { %>
+      <div class="no-records">No se encontraron registros</div>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>HECHO</th>
+            <th>DETALLE</th>
+            <th>FECHA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% registros.forEach((registro, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= registro.hecho || '—' %></td>
+              <td><%= registro.detalle || '—' %></td>
+              <td><%= registro.fecha ? new Date(registro.fecha).toLocaleDateString() : '—' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  <% }) %>
+</div>

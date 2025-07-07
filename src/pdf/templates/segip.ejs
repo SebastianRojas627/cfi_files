@@ -1,0 +1,131 @@
+<style>
+  .segip-container {
+    display: flex;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  .segip-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 3px;
+  }
+  .left-side {
+    width: 25%;
+    padding-right: 15px;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .left-side .photo-placeholder {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #aaa;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    /* Aquí puedes luego reemplazar por la foto real */
+  }
+  .left-side .nombre-completo {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .left-side .ci {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+
+  .right-side {
+    width: 75%;
+    padding-left: 20px;
+    box-sizing: border-box;
+  }
+
+  .section-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 3px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+    font-size: 0.95em;
+  }
+
+  .label {
+    font-weight: bold;
+  }
+</style>
+
+<div class="sinarap-title">Informacion SEGIP</div>
+<div class="segip-container">
+  <div class="left-side">
+    <div class="nombre-completo"><%= segip.Nombres %> <%= segip.PrimerApellido %> <%= segip.SegundoApellido %></div>
+    <div class="ci">CI: <%= segip.NumeroDocumento || 'N/A' %></div>
+    <img src="<%= segip.Fotografia %>" alt="Fotografía" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border: 1px solid #ccc;" />
+
+  </div>
+
+  <div class="right-side">
+    <!-- Información del ciudadano -->
+    <div class="section-title">Información del ciudadano</div>
+    <div class="info-grid">
+      <div>
+        <div class="label">Nombre Completo:</div>
+        <div><%= segip.Nombres %> <%= segip.PrimerApellido %> <%= segip.SegundoApellido %></div>
+        <div class="label">Procedencia:</div>
+        <div><%= segip.ProcedenciaRegistro || 'N/A' %></div>
+      </div>
+      <div>
+        <div class="label">Fecha de Nacimiento:</div>
+        <div><%= segip.FechaNacimiento || 'N/A' %></div>
+        <div class="label">Tipo de Registro:</div>
+        <div><%= segip.TipoRegistro || 'N/A' %></div>
+      </div>
+    </div>
+
+    <!-- Información complementaria -->
+    <div class="section-title">Información complementaria</div>
+    <div class="info-grid">
+      <div>
+        <div class="label">Domicilio:</div>
+        <div><%= segip.Domicilio || 'N/A' %></div>
+      </div>
+      <div>
+        <div class="label">Profesión/Ocupación:</div>
+        <div><%= segip.ProfesionOcupacion || 'N/A' %></div>
+        <div class="label">Estado Civil:</div>
+        <div><%= segip.EstadoCivil || 'N/A' %></div>
+      </div>
+    </div>
+
+    <!-- Información de relación familiar -->
+    <% if (segip.NombreCompletoConyuge) { %>
+      <div class="section-title">Información de relación familiar</div>
+      <div><strong>Nombre Cónyuge:</strong> <%= segip.NombreCompletoConyuge %></div>
+    <% } %>
+
+    <!-- Lugar de nacimiento -->
+    <div class="section-title">Lugar de nacimiento</div>
+    <div class="info-grid">
+      <div>
+        <div class="label">País:</div>
+        <div><%= segip.LugarNacimientoPais || 'N/A' %></div>
+        <div class="label">Provincia:</div>
+        <div><%= segip.LugarNacimientoProvincia || 'N/A' %></div>
+      </div>
+      <div>
+        <div class="label">Departamento:</div>
+        <div><%= segip.LugarNacimientoDepartamento || 'N/A' %></div>
+        <div class="label">Localidad:</div>
+        <div><%= segip.LugarNacimientoLocalidad || 'N/A' %></div>
+      </div>
+    </div>
+  </div>
+</div>

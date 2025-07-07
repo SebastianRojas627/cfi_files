@@ -1,0 +1,58 @@
+<% if (anh) { %>
+  <div style="margin-bottom: 24px;">
+    <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 4px;">Información ANH</h2>
+
+    <% if (anh.vehiculo) { %>
+      <h3 style="margin-top: 16px;">Datos del Vehículo</h3>
+
+      <% const imagenes = [
+          { label: 'Copia Placa', src: anh.vehiculo.copia_placa },
+          { label: 'Foto Frontal', src: anh.vehiculo.foto_frontal },
+          { label: 'Foto Lateral', src: anh.vehiculo.foto_lateral },
+          { label: 'Foto Placa', src: anh.vehiculo.foto_placa },
+          { label: 'Foto Tercera Placa', src: anh.vehiculo.foto_tercera_placa },
+          { label: 'Foto Chasis', src: anh.vehiculo.foto_chasis },
+          { label: 'Foto Licencia', src: anh.vehiculo.foto_licencia },
+        ]; %>
+
+      <% imagenes.forEach(img => { %>
+        <% if (img.src) { %>
+          <div style="margin-bottom: 8px;">
+            <strong><%= img.label %>:</strong><br>
+            <img src="<%= img.src %>" alt="<%= img.label %>" style="max-width: 100%; max-height: 200px; margin-top: 4px;" />
+          </div>
+        <% } %>
+      <% }); %>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+        <tbody>
+          <% Object.entries(anh.vehiculo).forEach(([key, value]) => { %>
+            <% if (value && !key.startsWith('foto') && !key.startsWith('copia')) { %>
+              <tr>
+                <td style="padding: 4px; border: 1px solid #ccc;"><strong><%= key.replace(/_/g, ' ').toUpperCase() %></strong></td>
+                <td style="padding: 4px; border: 1px solid #ccc;"><%= value %></td>
+              </tr>
+            <% } %>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (anh.cargas_combustible) { %>
+   <h3 style="margin-top: 24px;">Carga de Combustible</h3>
+   <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+     <tbody>
+       <% Object.entries(anh.cargas_combustible).forEach(([key, value]) => { %>
+         <% if (value !== null && value !== undefined) { %>
+           <tr>
+             <td style="padding: 4px; border: 1px solid #ccc;"><strong><%= key.replace(/_/g, ' ').toUpperCase() %></strong></td>
+             <td style="padding: 4px; border: 1px solid #ccc;"><%= value %></td>
+           </tr>
+         <% } %>
+       <% }); %>
+     </tbody>
+   </table>
+<% } %>
+
+  </div>
+<% } %>

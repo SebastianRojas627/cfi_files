@@ -1,0 +1,19 @@
+<h2>Sujeto #<%= index %></h2>
+<p><strong>Tipo:</strong> <%= sujeto.tipo === 'persona' ? 'Persona - CI: ' : 'Vehículo - Placa: ' %> <%= sujeto.ci || sujeto.placa %></p>
+
+
+<% if (sujeto.segip) { %>
+  <%- include('./segip', { segip: sujeto.segip }) %>
+<% } %>
+
+<% if (sujeto.sinarap) { %>
+  <%- include('./sinarap', { sinarap: sujeto.sinarap }) %>
+<% } %>
+
+<% if (sujeto.itv) { %>
+  <%- include('./itv', { itv: sujeto.itv }) %>
+<% } %>
+
+<% if (sujeto.anh) { %>
+  <%- include('./anh', { anh: sujeto.anh }) %>
+<% } %>

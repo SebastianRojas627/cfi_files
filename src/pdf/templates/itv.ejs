@@ -1,0 +1,157 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+  }
+
+  .itv-section-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+  }
+
+  .itv-photo, .owner-photo {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    margin: 0 auto 15px auto;
+    display: block;
+  }
+
+  .itv-subtitle {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #888;
+    padding-bottom: 3px;
+  }
+
+  .itv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+  }
+
+  .itv-table th,
+  .itv-table td {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .itv-table th {
+    width: 35%;
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .owner-container {
+    margin-bottom: 30px;
+    page-break-inside: avoid;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .owner-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    text-align: left;
+  }
+
+  .owner-section {
+    margin-top: 10px;
+    font-weight: bold;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-left: 4px solid #444;
+  }
+
+  .owner-table {
+    margin-top: 5px;
+  }
+</style>
+
+
+<% if (itv && itv.datos_tecnicos) { %>
+  <div class="itv-section-title">Información Técnica del Vehículo</div>
+
+  <% if (itv.datos_tecnicos.fotografia) { %>
+    <img class="itv-photo" src="<%= itv.datos_tecnicos.fotografia %>" alt="Fotografía del vehículo" />
+  <% } %>
+
+  <div class="itv-subtitle">Identificación del Vehículo</div>
+  <table class="itv-table">
+    <tbody>
+      <% if (itv.datos_tecnicos.placa) { %><tr><th>Placa</th><td><%= itv.datos_tecnicos.placa %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.chasis) { %><tr><th>Chasis</th><td><%= itv.datos_tecnicos.chasis %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.motor) { %><tr><th>Motor</th><td><%= itv.datos_tecnicos.motor %></td></tr><% } %>
+    </tbody>
+  </table>
+
+  <div class="itv-subtitle">Características Generales</div>
+  <table class="itv-table">
+    <tbody>
+      <% if (itv.datos_tecnicos.marca) { %><tr><th>Marca</th><td><%= itv.datos_tecnicos.marca %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.modelo) { %><tr><th>Modelo</th><td><%= itv.datos_tecnicos.modelo %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.industria) { %><tr><th>Industria</th><td><%= itv.datos_tecnicos.industria %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.color) { %><tr><th>Color</th><td><%= itv.datos_tecnicos.color %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.cilindrada) { %><tr><th>Cilindrada</th><td><%= itv.datos_tecnicos.cilindrada %></td></tr><% } %>
+    </tbody>
+  </table>
+
+  <div class="itv-subtitle">Clasificación y Uso</div>
+  <table class="itv-table">
+    <tbody>
+      <% if (itv.datos_tecnicos.clase) { %><tr><th>Clase</th><td><%= itv.datos_tecnicos.clase %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.servicio) { %><tr><th>Servicio</th><td><%= itv.datos_tecnicos.servicio %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.tipo_vehiculo) { %><tr><th>Tipo de Vehículo</th><td><%= itv.datos_tecnicos.tipo_vehiculo %></td></tr><% } %>
+      <% if (itv.datos_tecnicos.radicatoria) { %><tr><th>Radicatoria</th><td><%= itv.datos_tecnicos.radicatoria %></td></tr><% } %>
+    </tbody>
+  </table>
+<% } %>
+
+<% if (itv && itv.personas && itv.personas.length > 0) { %>
+  <div class="itv-subtitle">Propietarios Registrados</div>
+
+  <% itv.personas.forEach((owner, index) => { %>
+    <div class="owner-container">
+      <div class="owner-title">Dueño #<%= index + 1 %></div>
+
+      <% if (owner.fotografia) { %>
+        <img class="owner-photo" src="<%= owner.fotografia %>" alt="Fotografía del propietario" />
+      <% } %>
+
+      <div class="owner-section">Información Personal</div>
+      <table class="itv-table owner-table">
+        <tbody>
+          <tr><th>Nombre</th><td><%= `${owner.nombre} ${owner.paterno || ''} ${owner.materno || ''}`.trim() %></td></tr>
+          <tr><th>Sexo</th><td><%= owner.sexo %></td></tr>
+          <tr><th>Fecha de Nacimiento</th><td><%= owner.fecha_nacimiento %></td></tr>
+          <tr><th>Expedición</th><td><%= owner.expedicion %></td></tr>
+          <tr><th>Documento Complemento</th><td><%= owner.documento_complemento %></td></tr>
+          <tr><th>Nro. Celular</th><td><%= owner.nro_celular %></td></tr>
+          <tr><th>Email</th><td><%= owner.email %></td></tr>
+        </tbody>
+      </table>
+
+      <div class="owner-section">Licencia y Registro</div>
+      <table class="itv-table owner-table">
+        <tbody>
+          <tr><th>Categoría de Licencia</th><td><%= owner.categoria_licencia %></td></tr>
+          <tr><th>Gestión</th><td><%= owner.gestion %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  <% }); %>
+<% } %>
